@@ -1,0 +1,177 @@
+% LaTeX file for resume
+% This file uses the resume document class (res.cls)
+
+\documentclass[margin]{res}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{calc}
+\usepackage[inline]{enumitem}
+
+\begin{document}
+
+  \newlength\contentwidth
+
+  \setlength{\contentwidth}{\resumewidth-\sectionskip-\sectionwidth}
+  \topmargin=-.25in %TODO: let's not re-fudge this every time my resume gets updated
+
+  \setlist[itemize,1]{label=$\bullet$, leftmargin=*, itemsep=0pt, partopsep=0pt, labelsep=4pt, topsep=2pt}
+  \setlist[itemize,2]{label=$\bullet$, leftmargin=*, partopsep=0pt, labelsep=4pt, topsep=3pt, itemsep=1pt}
+
+  %TODO: i hate this
+  \newcommand{\contactinfo}[3]{
+  \begin{tabular}{c}
+      #1 \\ #2 \\ #3
+    \end{tabular}
+  }
+
+  \newcommand{\link}[2]{%
+    \textbf{ #1 } \\ \href{http://#2}{\texttt{#2}} %most PDF readers don't seem to recognize \url refers to an http URL, sooooo
+  }
+
+
+  \newcommand{\sitem}[1]{\item[] \begin{itemize} \item[] #1 \end{itemize}}
+
+  %align dates of chronological items
+  \newcommand{\itemdate}[2]{
+    \begin{tabularx}{\contentwidth}{@{}X r@{}}
+      #1 & #2
+    \end{tabularx}
+  }
+
+  % I wanted to use \position from res.cls,
+  % but it doesn't seem to respect the right margin,
+  % and I can't get the dates to align with other sections that don't use \position.
+  % arguments: employer, title, description, date
+  \newcommand{\job}[5]{\item \itemdate{\textbf{#1 - #2} #5}{#3 - #4}}
+
+  %WHAT I WANT(?)
+  %\begin{contactinfo}
+  %  \name{EVAN WHEELER}
+  %  \email{ewheeler\@mail.rit.edu}
+  %  \phone{+1-440-465-1080}
+  %  \availability{Available January 2016}
+  %\end{contactinfo}
+
+  %WHAT I HAVE
+  \name{
+    \contactinfo{EVAN WHEELER}{\href{mailto:ewheeler@mail.rit.edu}{ewheeler@mail.rit.edu}}{440-465-1080}
+  }
+
+  %WHAT I WANT
+  %\begin{links}
+  %  \link{Github}{www.github.com/vnwhlr}
+  %  \link{LinkedIn}{www.linkedin.com/in/vnwhlr}
+  %\end{links}
+
+  %WHAT I HAVE
+  \address{ \link{GitHub}{www.github.com/vnwhlr} }
+  \address{ \link{LinkedIn}{www.linkedin.com/in/vnwhlr} }
+
+  \availability{Available January 2016}
+
+  \begin{resume}
+
+    \section{SUMMARY}
+      \setlength{\parindent}{2ex}
+        Software engineer with a strong academic record and a year of internships graduating from Rochester Institute of Technology with a B.S. in Computer Science. Solid knowledge of computer science fundamentals (data structures, algorithms, distributed systems) and multiple programming languages and paradigms (OO, functional, structured) in addition to full-stack familiarity and DevOps expertise. Experience taking products from requirements to delivery using Agile methodology.
+      \setlength{\parindent}{0pt}
+
+      \section{LANGUAGES}
+        \begin{itemize*}[itemjoin=\hspace{2ex}]
+          \item Javascript (Node.js, AngularJS)
+          \item Ruby
+          \item HTML/CSS
+          \item Java
+          \item C\#
+          \item C
+        \end{itemize*} \\
+        \begin{itemize*}[itemjoin=\hspace{2ex}]
+          \item Haskell
+          \item Scala
+          \item SQL
+        \end{itemize*}
+
+
+      \section{OTHER SKILLS}
+        \begin{itemize*}[itemjoin=\hspace{2ex}]
+          \item AWS (EC2, ECS, S3)
+          \item Docker
+          \item Git/GitHub
+          \item Linux/UNIX
+          \item \LaTeX
+        \end{itemize*}
+
+    %\section{COURSEWORK}
+    %  \begin{itemize*}
+    %    \item Data Structures And Problem Solving
+    %    \item Object-Oriented Programming
+    %    \item Parallel and Distributed Systems
+    %    \item Analysis of Algorithms
+    %    \item Database System Implementation
+    %    \item Data Communications and Networking
+    % in an ideal world, employers would care about these
+    %    \item Programming Language Theory % shoutout to Dr. Fluet
+    %    \item Abstract Algebra % Abstract Algebra was awesome
+    %    \item Cryptography % tl;dr never roll your own crypto
+    %    \item Artificial Intelligence % tl;dr it's a slippery slope from A* to Skynet
+    %  \end{itemize*}
+
+
+    \section{EDUCATION}
+      \begin{itemize}
+        \item[] \textbf{Rochester Institute of Technology}
+        \sitem{Bachelor of Science in Computer Science \textit{(GPA 3.42)}}
+      \end{itemize}
+
+
+    \section{WORK EXPERIENCE}
+    \begin{itemize}[topsep=2pt, itemsep=-7pt]
+      \job{EnerNOC}{Labs Software Intern}{1/15}{8/15}{
+        \begin{itemize}
+          \item Built AngularJS UIs and Node.js microservices with small Agile team for several product prototypes
+          \item Containerized Node.js applications, created staging, production environments on AWS EC2/ECS, wrote Ruby and Bash scripts for custom Docker CI/CD pipeline
+          \item Developed Scala engine for ingesting and mapping newly registered sensors into platform node structure
+        \end{itemize}
+      }
+      \job{S\&P Capital IQ}{Software Developer Intern}{6/14}{8/14}{%
+        \begin{itemize}
+          \item Created usage tracking tools using Haskell-like DSL, ASP.NET, SQL Server and jQuery for financial intelligence platform
+          \item Designed Node.js mock backend and SQL database schema for prototype of social media/networking addition to platform
+        \end{itemize}
+      }
+      \job{University of Nebraska - Lincoln}{Teaching Assistant}{1/12}{12/12}{
+        \begin{itemize}
+          \item Assisted professor in creating and proofreading homework, grading, and guiding labs for introductory C and Java courses
+        \end{itemize}
+      }
+    \end{itemize}
+    \vspace{-12pt} %TODO: WHYYYYY ლ(ﾟдﾟლ)
+
+
+    \section{SCHOOL PROJECTS}
+      \begin{itemize}
+        \item Created Twitter clone using Sinatra with Riak-based backend
+        \item Implemented FTP/TFTP clients in C\#
+        \item Developed Windows Phone app for location-based messaging
+      \end{itemize}
+
+    \section{ACTIVITIES}
+    \begin{itemize}
+      \item \itemdate{Participated in ACM North Central North America Regional \newline Programming Contest %TODO: yeah, yeah, I know
+        }{2011, 2012}
+      \item \itemdate{Interim Secretary of the UNL chapter of the ACM
+        }{8/12 - 12/12}
+      \item \itemdate{Copyeditor + Graphic Designer for The Shakerite
+        }{8/08 - 5/10}
+    \end{itemize}
+
+
+    \section{HONORS}
+    \begin{itemize}
+      \item Dean's List, Spring/Fall 2011, 2012, Fall 2013, Spring 2014
+    \end{itemize}
+
+
+    \hspace{84pt}\printavailability %TODO: there's a less stupid way to do this
+  \end{resume}
+\end{document}
