@@ -1,7 +1,7 @@
 % LaTeX file for resume
 % This file uses the resume document class (res.cls)
 
-\documentclass[margin]{res}
+\documentclass[resmargin]{res}
 \usepackage{tabularx}
 \usepackage{hyperref}
 \usepackage{calc}
@@ -9,169 +9,175 @@
 
 \begin{document}
 
-  \newlength\contentwidth
+\newlength\contentwidth
 
-  \setlength{\contentwidth}{\resumewidth-\sectionskip-\sectionwidth}
-  \topmargin=-.25in %TODO: let's not re-fudge this every time my resume gets updated
+\setlength{\contentwidth}{\resumewidth-\sectionwidth}
+\topmargin=-.3in %TODO: let's not re-fudge this every time my resume gets updated
 
-  \setlist[itemize,1]{label=$\bullet$, leftmargin=*, itemsep=0pt, partopsep=0pt, labelsep=4pt, topsep=2pt}
-  \setlist[itemize,2]{label=$\bullet$, leftmargin=*, partopsep=0pt, labelsep=4pt, topsep=3pt, itemsep=1pt}
-
-  %TODO: i hate this
-  \newcommand{\contactinfo}[3]{
-  \begin{tabular}{c}
-      #1 \\ #2 \\ #3
-    \end{tabular}
-  }
-
-  \newcommand{\link}[2]{%
-    \textbf{ #1 } \\ \href{http://#2}{\texttt{#2}} %most PDF readers don't seem to recognize \url refers to an http URL, sooooo
-  }
-
-
-  \newcommand{\sitem}[1]{\item[] \begin{itemize} \item[] #1 \end{itemize}}
-
-  %align dates of chronological items
+% align dates of chronological items
   \newcommand{\itemdate}[2]{
-    \begin{tabularx}{\contentwidth}{@{}X r@{}}
-      #1 & #2
-    \end{tabularx}
-  }
+      \begin{tabularx}{\contentwidth}{@{}X r@{}}
+        #1 & #2
+      \end{tabularx}
+    }
 
-  % I wanted to use \position from res.cls,
-  % but it doesn't seem to respect the right margin,
-  % and I can't get the dates to align with other sections that don't use \position.
-  % arguments: employer, title, description, date
-  \newcommand{\job}[5]{\item \itemdate{\textbf{#1 - #2} #5}{#3 - #4}}
+    \setlist[itemize,1]{label=$\bullet$, leftmargin=0pt, itemsep=0pt, partopsep=0pt}
 
-  %WHAT I WANT(?)
-  %\begin{contactinfo}
-  %  \name{EVAN WHEELER}
-  %  \email{ewheeler\@mail.rit.edu}
-  %  \phone{+1-440-465-1080}
-  %  \availability{Available January 2016}
-  %\end{contactinfo}
+    \newlist{positions}{itemize}{1}
+    \setlist[positions,1]{label={}, leftmargin=0pt, itemsep=-10pt, topsep=1pt, after=\vspace{-15pt}} %TODO: WHYYYYY ლ(ﾟдﾟლ)
 
-  %WHAT I HAVE
-  \name{
-    \contactinfo{EVAN WHEELER}{\href{mailto:ewheeler@mail.rit.edu}{ewheeler@mail.rit.edu}}{440-465-1080}
-  }
+    \newlist{duties}{itemize}{1}
+    \setlist[duties,1]{label=$\bullet$, leftmargin=*, itemsep=0pt, partopsep=0pt, topsep=2pt}
 
-  %WHAT I WANT
-  %\begin{links}
-  %  \link{Github}{www.github.com/vnwhlr}
-  %  \link{LinkedIn}{www.linkedin.com/in/vnwhlr}
-  %\end{links}
+    \newenvironment{job}{
+      \newcommand{\gtitle}{}
+      \newcommand{\jobtitle}[1]{\renewcommand{\gtitle}{##1}}
+      \newcommand{\gdates}{}
+      \newcommand{\jobdates}[1]{\renewcommand{\gdates}{##1}}
+      \newcommand{\gduties}{}
+      \newcommand{\jobduties}[1]{\renewcommand{\gduties}{##1}}
+    }{
+    \itemdate{\textbf{\gtitle}
+        \begin{duties}
+          \gduties
+        \end{duties}
+      }{\gdates}
+    }
 
-  %WHAT I HAVE
-  \address{ \link{GitHub}{www.github.com/vnwhlr} }
-  \address{ \link{LinkedIn}{www.linkedin.com/in/vnwhlr} }
+    %TODO: i hate this
+    \newcommand{\contactinfo}[3]{
+      \begin{tabular}{c}
+        #1 \\ #2 \\ #3
+      \end{tabular}
+    }
 
-  \availability{Available January 2016}
+    \newcommand{\link}[2]{%
+      \textbf{ #1 } \\ \href{http://#2}{\texttt{#2}} %most PDF readers don't seem to recognize \url refers to an http URL, sooooo
+    }
 
-  \begin{resume}
 
-    \section{SUMMARY}
-      \setlength{\parindent}{2ex}
-        Software engineer with a strong academic record and a year of internships graduating from Rochester Institute of Technology with a B.S. in Computer Science. Solid knowledge of computer science fundamentals (data structures, algorithms, distributed systems) and multiple programming languages and paradigms (OO, functional, structured) in addition to full-stack familiarity and DevOps expertise. Experience taking products from requirements to delivery using Agile methodology.
-      \setlength{\parindent}{0pt}
+    %WHAT I WANT(?)
+    %\begin{contactinfo}
+    %  \name{EVAN WHEELER}
+    %  \email{ewheeler\@mail.rit.edu}
+    %  \phone{+1-440-465-1080}
+    %\end{contactinfo}
+
+    %WHAT I HAVE
+    \name{
+      \hspace{-6.5ex} % this just sucks so much
+      \contactinfo{EVAN WHEELER}{\href{mailto:ewheeler@mail.rit.edu}{ewheeler@mail.rit.edu}}{440-465-1080}
+    }
+
+    %WHAT I WANT
+    %\begin{links}
+    %  \link{Github}{www.github.com/vnwhlr}
+    %  \link{LinkedIn}{www.linkedin.com/in/vnwhlr}
+    %\end{links}
+
+    %WHAT I HAVE
+    \address{\link{GitHub}{www.github.com/vnwhlr}}
+    \address{\link{LinkedIn}{www.linkedin.com/in/vnwhlr}}
+
+    \begin{resume}
+
+      \section{SUMMARY}
+      \noindent Software engineer with 2+ years of work experience and strong academic record. Full-stack familiarity, from frontend to backend to devops. Proven track record of taking products from requirements to delivery using Agile methodology. Solid knowledge of computer science fundamentals (algorithms, distributed systems) and multiple programming languages and paradigms (object-oriented, functional, structured).
 
       \section{LANGUAGES}
-        \begin{itemize*}[itemjoin=\hspace{2ex}]
-          \item Javascript (Node.js, AngularJS)
-          \item Ruby
-          \item HTML/CSS
-          \item Java
-          \item C\#
-          \item C
-        \end{itemize*} \\
-        \begin{itemize*}[itemjoin=\hspace{2ex}]
-          \item Haskell
-          \item Scala
-          \item SQL
-        \end{itemize*}
-
+      \begin{itemize*}[itemjoin=\hspace{2ex}]
+        \item Ruby (Ruby on Rails)
+        \item Javascript (Node.js, AngularJS)
+        \item Scala
+        \item HTML/CSS
+        \item Java
+        \item Haskell
+        \item C
+      \end{itemize*}
 
       \section{OTHER SKILLS}
-        \begin{itemize*}[itemjoin=\hspace{2ex}]
-          \item AWS (EC2, ECS, S3)
-          \item Docker
-          \item Git/GitHub
-          \item Linux/UNIX
-          \item \LaTeX
-        \end{itemize*}
+      \begin{itemize*}[itemjoin=\hspace{2ex}]
+        \item AWS (EC2, ECS, S3)
+        \item Linux/UNIX
+        \item Docker
+        \item Jenkins
+        \item SQL (PostgreSQL, MySQL)
+        \item Redis
+        \item Cassandra
+        \item NGINX
+        \item Git/GitHub
+        \item \LaTeX
+      \end{itemize*}
 
-    %\section{COURSEWORK}
-    %  \begin{itemize*}
-    %    \item Data Structures And Problem Solving
-    %    \item Object-Oriented Programming
-    %    \item Parallel and Distributed Systems
-    %    \item Analysis of Algorithms
-    %    \item Database System Implementation
-    %    \item Data Communications and Networking
-    % in an ideal world, employers would care about these
-    %    \item Programming Language Theory % shoutout to Dr. Fluet
-    %    \item Abstract Algebra % Abstract Algebra was awesome
-    %    \item Cryptography % tl;dr never roll your own crypto
-    %    \item Artificial Intelligence % tl;dr it's a slippery slope from A* to Skynet
-    %  \end{itemize*}
+      \section{EDUCATION}
+      \begin{positions}
+      \item \begin{job}
+          \jobtitle{Rochester Institute of Technology}
+          \jobduties{
+          \item Bachelor of Science in Computer Science
+          }
+        \end{job}
+      \end{positions}
 
-
-    \section{EDUCATION}
-      \begin{itemize}
-        \item[] \textbf{Rochester Institute of Technology}
-        \sitem{Bachelor of Science in Computer Science \textit{(GPA 3.42)}}
-      \end{itemize}
-
-
-    \section{WORK EXPERIENCE}
-    \begin{itemize}[topsep=2pt, itemsep=-7pt]
-      \job{EnerNOC}{Labs Software Intern}{1/15}{8/15}{
-        \begin{itemize}
+      \section{WORK EXPERIENCE}
+      \begin{positions}
+      \item \begin{job}
+          \jobtitle{Datto - Associate Software Engineer}
+          \jobdates{1/16 - now}
+          \jobduties{
+          \item Contributed to and diagnosed and triaged issues with Ruby on Rails application backing up petabytes' worth of Google Apps, Office365 and Salesforce data
+          \item Wrote integrations against internal and external APIs and services
+          \item Designed and set up infrastructure and CI/CD pipeline, and contributed application code for RoR/Angular storefront microservice
+          }
+        \end{job}
+      \item \begin{job}
+          \jobtitle{EnerNOC - Labs Software Intern}
+          \jobdates{1/15 - 8/15}
+          \jobduties{
           \item Built AngularJS UIs and Node.js microservices with small Agile team for several product prototypes
           \item Containerized Node.js applications, created staging, production environments on AWS EC2/ECS, wrote Ruby and Bash scripts for custom Docker CI/CD pipeline
-          \item Developed Scala engine for ingesting and mapping newly registered sensors into platform node structure
-        \end{itemize}
-      }
-      \job{S\&P Capital IQ}{Software Developer Intern}{6/14}{8/14}{%
-        \begin{itemize}
+          \item Worked on Scala prototype for engine ingesting and mapping newly registered sensors into platform
+          }
+        \end{job}
+
+      \item \begin{job}
+          \jobtitle{S\&P Capital IQ - Software Developer Intern}
+          \jobdates{6/14 - 8/14}
+          \jobduties{
           \item Created usage tracking tools using Haskell-like DSL, ASP.NET, SQL Server and jQuery for financial intelligence platform
           \item Designed Node.js mock backend and SQL database schema for prototype of social media/networking addition to platform
-        \end{itemize}
-      }
-      \job{University of Nebraska - Lincoln}{Teaching Assistant}{1/12}{12/12}{
-        \begin{itemize}
+          }
+        \end{job}
+      \item \begin{job}
+          \jobtitle{University of Nebraska - Lincoln - Teaching Assistant}
+          \jobdates{1/12 - 12/12}
+          \jobduties{
           \item Assisted professor in creating and proofreading homework, grading, and guiding labs for introductory C and Java courses
-        \end{itemize}
-      }
-    \end{itemize}
-    \vspace{-12pt} %TODO: WHYYYYY ლ(ﾟдﾟლ)
+          }
+        \end{job}
+      \end{positions}
 
-
-    \section{SCHOOL PROJECTS}
+      \section{PROJECTS}
       \begin{itemize}
         \item Created Twitter clone using Sinatra with Riak-based backend
         \item Implemented FTP/TFTP clients in C\#
         \item Developed Windows Phone app for location-based messaging
       \end{itemize}
 
-    \section{ACTIVITIES}
-    \begin{itemize}
-      \item \itemdate{Participated in ACM North Central North America Regional \newline Programming Contest %TODO: yeah, yeah, I know
-        }{2011, 2012}
-      \item \itemdate{Interim Secretary of the UNL chapter of the ACM
-        }{8/12 - 12/12}
-      \item \itemdate{Copyeditor + Graphic Designer for The Shakerite
-        }{8/08 - 5/10}
-    \end{itemize}
+      \section{ACTIVITIES}
+      \begin{itemize}
+        \item \itemdate{Participated in ACM North America Regional Programming Contest
+          }{2011, 2012}
+        \item \itemdate{Interim Secretary of the UNL chapter of the ACM
+          }{8/12 - 12/12}
+        \item \itemdate{Copyeditor + Graphic Designer for The Shakerite
+          }{8/08 - 5/10}
+      \end{itemize}
 
+      %    \section{HONORS}
+      %      \begin{itemize}
+      %        \item Dean's List, Spring/Fall 2011, 2012, Fall 2013, Spring 2014
+      %      \end{itemize}
 
-    \section{HONORS}
-    \begin{itemize}
-      \item Dean's List, Spring/Fall 2011, 2012, Fall 2013, Spring 2014
-    \end{itemize}
-
-
-    \hspace{84pt}\printavailability %TODO: there's a less stupid way to do this
-  \end{resume}
-\end{document}
+    \end{resume}
+    \end{document}

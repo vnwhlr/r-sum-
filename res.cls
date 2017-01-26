@@ -194,7 +194,7 @@
 \DeclareOption{line}{\@linetrue}
 \DeclareOption{centered}{\@linefalse}
 
-\DeclareOption{margin}{\@margintrue}
+\DeclareOption{resmargin}{\@margintrue}
 \DeclareOption{overlapped}{\@marginfalse}
 
 \ExecuteOptions{overlapped,centered}
@@ -229,16 +229,6 @@
     }%
   }%
 \endgroup}
-
-\def\availability#1{\def\@availability{#1}}
-
-\def\@availability{}
-
-\def\printavailability{
-  \footnotesize{\@availability}
-}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % this is used to print the name and address at the top of
@@ -291,7 +281,7 @@
 \newdimen\resumewidth
 
 \resumewidth=6.5in
-\sectionskip=3.5ex plus 1ex minus -.2ex % values stolen from LaTeX
+\sectionskip=3ex % values stolen from LaTeX
 
 \def\newsectionwidth#1{%
 		     \sectionwidth=#1
